@@ -6,6 +6,7 @@ This script can be used convert TXT and JSON files to an Apple Mac .clr color pa
 
 ### TXT
 
+Compatible with:
 
 * [Html2Clr](https://github.com/ramonpoca/ColorTools)
 

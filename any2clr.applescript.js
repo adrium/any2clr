@@ -1,13 +1,13 @@
-ObjC.import('AppKit');
+ObjC.import('AppKit')
 
 var app = Application.currentApplication()
 app.includeStandardAdditions = true
 
-var input = app.chooseFile({ofType: ["txt", "json"]})
+var input = app.chooseFile({ ofType: ["txt", "json"] })
 var name = input.toString().match(/.+\/([^.]+)/)[1]
 var output = app.chooseFileName({ defaultName: name + '.clr' })
 var contents = app.read(input)
-var nsclrlist = $.NSColorList.alloc.initWithName(name);
+var nsclrlist = $.NSColorList.alloc.initWithName(name)
 var colors = []
 
 if (contents[0] == "{") {
@@ -15,7 +15,7 @@ if (contents[0] == "{") {
 	colors = Object.keys(colors).map(s => ({ name: s, color: colors[s] }))
 } else {
 	colors = contents.split("\n")
-	colors = colors.map(str => str.match(/(\S+)\s+(.+)/))
+	colors = colors.map(line => line.match(/(\S+)\s+(.+)/))
 	colors = colors.filter(match => match)
 	colors = colors.map(match => ({ name: match[2], color: match[1] }))
 }
@@ -30,4 +30,4 @@ colors.forEach(o => {
 
 colors.forEach((o, i) => o.nscolor = $.NSColor.colorWithCalibratedRedGreenBlueAlpha(o.r, o.g, o.b, o.a))
 colors.forEach((o, i) => nsclrlist.insertColorKeyAtIndex(o.nscolor, o.name, i))
-nsclrlist.writeToFile(output.toString());
+nsclrlist.writeToFile(output.toString())
